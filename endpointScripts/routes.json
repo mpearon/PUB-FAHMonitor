@@ -1,0 +1,38 @@
+[
+	{
+		"name": "getQueueInfo",
+		"command": "queue-info"
+	},
+	{
+		"name": "getPowerLevel",
+		"command": "options power"
+	},
+	{
+		"name": "setPowerLevel",
+		"command": "option power light"
+	},
+	{
+		"name": "getUser",
+		"command": "options user"
+	},
+	{
+		"name": "getTeam",
+		"command": "options team"
+	},
+	{
+		"name": "pause",
+		"command": "pause *"
+	},
+	{
+		"name": "unpause",
+		"command": "unpause *"
+	},
+	{
+		"name": "onIdle",
+		"command": "on_idle *"
+	},
+	{
+		"name": "finish",
+		"command": "finish *"
+	}
+]
