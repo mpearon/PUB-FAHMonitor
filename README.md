@@ -5,15 +5,15 @@ This script's purpose is to make monitoring and controlling remote Folding@Home 
 
 ## Featues
 *As features are implemented, the will be added to this list*
+- HTTP Listener - Allows predefined FAHClient commands to be run on remote folder, returning results via HTTP endpoint
 
 ## Proposed Features
 *Ideas for new features will be added to this list*
-- [ ] Listener
+- [ ] Listener - *Access FAHClient locally, parse results and return via HTTP/HTTPS endpoint*
 	- [X] HTTP/HTTPS Listener implemented in PowerShell
 		- [ ] Support Authentication
 			- Basic
 			- Header
-	- [ ] Will access FAH Shell locally, parse results then return requested information
 	- Supported Requests
 		- [X] GET Queue Info ( ```queue-info``` )
 		- [X] GET Power Level ( ```options power``` )
