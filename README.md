@@ -9,21 +9,21 @@ This script's purpose is to make monitoring and controlling remote Folding@Home 
 ## Proposed Features
 *Ideas for new features will be added to this list*
 - [ ] Listener
-	- [ ] HTTP/HTTPS Listener implemented in PowerShell
+	- [X] HTTP/HTTPS Listener implemented in PowerShell
 		- [ ] Support Authentication
 			- Basic
 			- Header
 	- [ ] Will access FAH Shell locally, parse results then return requested information
 	- Supported Requests
-		- [ ] GET Queue Info ( ```queue-info``` )
-		- [ ] GET Power Level ( ```options power``` )
-		- [ ] SET Power Level ( ```option power <light|medium|full>```
-		- [ ] GET Donor ID / Name ( ```options user``` )
-		- [ ] GET Team ID / Name ( ```options team``` )
-		- [ ] SET Pause All Slots ( ```pause *``` )
-		- [ ] SET Unpause All Slots ( ```unpause *``` )
-		- [ ] SET onIdle All Slots ( ```on_idle *``` )
-		- [ ] SET Finish All Slots ( ```finish *``` )
+		- [X] GET Queue Info ( ```queue-info``` )
+		- [X] GET Power Level ( ```options power``` )
+		- [X] SET Power Level ( ```option power <light|medium|full>```
+		- [X] GET Donor ID / Name ( ```options user``` )
+		- [X] GET Team ID / Name ( ```options team``` )
+		- [X] SET Pause All Slots ( ```pause *``` )
+		- [X] SET Unpause All Slots ( ```unpause *``` )
+		- [X] SET onIdle All Slots ( ```on_idle *``` )
+		- [X] SET Finish All Slots ( ```finish *``` )
 - [ ] Output Options
 	- [ ] Return InfluxDB output when requested
 	- [ ] Return Prometheus output when requested
