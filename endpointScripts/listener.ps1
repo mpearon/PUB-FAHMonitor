@@ -17,10 +17,10 @@ while($listener.IsListening -eq $true){
 		'setPowerLevel'	{ FAHClient --send-command "options power $requestedVariable"; $html = (FAHClient --send-command "options power" | Select-String -Pattern '{.+?}' | ConvertFrom-JSON).power }
 		'getUser'		{ $html = ( (FAHClient --send-command "options user" | Select-String -Pattern '{.+?}' | ConvertFrom-JSON).user ) }
 		'getTeam'		{ $html = ( (FAHClient --send-command "options team" | Select-String -Pattern '{.+?}' | ConvertFrom-JSON).team ) }
-		'pause'			{ FAHClient --send-command "pause *"; $html = (FAHClient --send-command "slot-info") }
-		'unpause'		{ FAHClient --send-command "unpause *"; $html = (FAHClient --send-command "slot-info") }
-		'onIdle'		{ FAHClient --send-command "on_idle *"; $html = (FAHClient --send-command "slot-info") }
-		'finish'		{ FAHClient --send-command "finish *"; $html = (FAHClient --send-command "slot-info") }
+		'pause'			{ FAHClient --send-command "pause *"; $html = ((FAHClient --send-command "slot-info" | Select-Object -Skip 2) -replace "---" -replace '\sFalse','"False"' -replace '\sTrue','"True"' | ConvertFrom-Json).status }
+		'unpause'		{ FAHClient --send-command "unpause *"; $html = ((FAHClient --send-command "slot-info" | Select-Object -Skip 2) -replace "---" -replace '\sFalse','"False"' -replace '\sTrue','"True"' | ConvertFrom-Json).status  }
+		'onIdle'		{ FAHClient --send-command "on_idle *"; $html = ((FAHClient --send-command "slot-info" | Select-Object -Skip 2) -replace "---" -replace '\sFalse','"False"' -replace '\sTrue','"True"' | ConvertFrom-Json).status }
+		'finish'		{ FAHClient --send-command "finish *"; $html = ((FAHClient --send-command "slot-info" | Select-Object -Skip 2) -replace "---" -replace '\sFalse','"False"' -replace '\sTrue','"True"' | ConvertFrom-Json).status }
 		default			{ $html = 'Unknown option' }
 	}
 	$buffer = [System.Text.Encoding]::UTF8.GetBytes($html)
