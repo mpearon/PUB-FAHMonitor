@@ -1,0 +1,47 @@
+[
+	{
+		"name": "getQueueInfo",
+		"fahCommand": "queue-info",
+		"variableSupport": false
+	},
+	{
+		"name": "getPowerLevel",
+		"fahCommand": "options power",
+		"variableSupport": false
+	},
+	{
+		"name": "setPowerLevel",
+		"fahCommand": "option power light",
+		"variableSupport": true
+	},
+	{
+		"name": "getUser",
+		"fahCommand": "options user",
+		"variableSupport": false
+	},
+	{
+		"name": "getTeam",
+		"fahCommand": "options team",
+		"variableSupport": false
+	},
+	{
+		"name": "pause",
+		"fahCommand": "pause *"
+	,	"variableSupport": false
+	},
+	{
+		"name": "unpause",
+		"fahCommand": "unpause *"
+,		"variableSupport": false
+	},
+	{
+		"name": "onIdle",
+		"fahCommand": "on_idle *"
+,		"variableSupport": false
+	},
+	{
+		"name": "finish",
+		"fahCommand": "finish *"
+	,	"variableSupport": false
+	}
+]
