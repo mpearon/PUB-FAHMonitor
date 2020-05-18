@@ -10,6 +10,9 @@ This script's purpose is to make monitoring and controlling remote Folding@Home 
 *Ideas for new features will be added to this list*
 - [ ] Listener
 	- [ ] HTTP/HTTPS Listener implemented in PowerShell
+		- [ ] Support Authentication
+			- Basic
+			- Header
 	- [ ] Will access FAH Shell locally, parse results then return requested information
 	- Supported Requests
 		- [ ] GET Queue Info ( ```queue-info``` )
