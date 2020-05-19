@@ -1,3 +1,7 @@
+# v0.1.5 - 2020-05-18 19:58
+- Updated README
+	- Corrected spelling of "Features" header
+
 # v0.1.4 - 2020-05-18 19:23
 - Updated README
 	- Added missing parenthesis in Proposed Functions list entry
