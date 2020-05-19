@@ -1,3 +1,7 @@
+# v0.1.4 - 2020-05-18 19:23
+- Updated README
+	- Added missing parenthesis in Proposed Functions list entry
+
 # v0.1.3 - 2020-05-18 19:15
 - Updated listener
 	- Removed commented authentication ([#12](https://github.com/mpearon/PUB-FAHMonitor/issues/12))
