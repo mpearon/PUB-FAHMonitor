@@ -1,7 +1,5 @@
 $listener = [System.Net.HttpListener]::new()
 $listener.Prefixes.Add('http://*:8614/')
-#$listener.AuthenticationSchemes = [System.Net.AuthenticationSchemes]::Anonymous
-#$listener.UnsafeConnectionNtlmAuthentication = $true
 $listener.Start()
 
 $stopServer = $false
