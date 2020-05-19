@@ -1,3 +1,7 @@
+# v0.1.3 - 2020-05-18 19:15
+- Updated listener
+	- Removed commented authentication ([#12](https://github.com/mpearon/PUB-FAHMonitor/issues/12))
+
 # v0.1.2 - 2020-05-18 19:03
 - Updated listener
 	- Added graceful exit functionality
