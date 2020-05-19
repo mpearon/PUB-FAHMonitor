@@ -17,7 +17,7 @@ This script's purpose is to make monitoring and controlling remote Folding@Home 
 	- Supported Requests
 		- [X] GET Queue Info ( ```queue-info``` )
 		- [X] GET Power Level ( ```options power``` )
-		- [X] SET Power Level ( ```option power <light|medium|full>```
+		- [X] SET Power Level ( ```option power <light|medium|full>``` )
 		- [X] GET Donor ID / Name ( ```options user``` )
 		- [X] GET Team ID / Name ( ```options team``` )
 		- [X] SET Pause All Slots ( ```pause *``` )
