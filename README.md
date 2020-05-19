@@ -3,7 +3,7 @@
 ## Purpose
 This script's purpose is to make monitoring and controlling remote Folding@Home instances easier.
 
-## Featues
+## Features
 *As features are implemented, the will be added to this list*
 - HTTP Listener - Allows predefined FAHClient commands to be run on remote folder, returning results via HTTP endpoint
 
