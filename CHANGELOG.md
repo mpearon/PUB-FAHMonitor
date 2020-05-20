@@ -1,3 +1,10 @@
+# v0.1.6 - 2020-05-20 17:43
+- Codespaces Preparation
+	- Added .devcontainer/devcontainer.json
+		- Set container name to "FAHMonitor"
+		- PowerShell Preview extension
+		- PowerShell Preview Snap installation
+
 # v0.1.5 - 2020-05-18 19:58
 - Updated README
 	- Corrected spelling of "Features" header
