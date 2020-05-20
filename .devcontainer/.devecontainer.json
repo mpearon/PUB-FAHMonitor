@@ -1,0 +1,7 @@
+{
+	"name": "FAHMonitor",
+	"extensions": [
+		"ms-vscode.powershell-preview"
+	],
+	"postCreateCommand": "sudo snap install powershell-preview --classic"
+}
