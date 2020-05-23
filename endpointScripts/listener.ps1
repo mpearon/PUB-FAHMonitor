@@ -5,11 +5,10 @@ $listener.Start()
 $stopServer = $false
 while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 	$context = $listener.GetContext()
-	
 	$requestedFunction = $context.Request.RawUrl -replace '/'
 	if($requestedFunction -match '\?'){
-		$requestedFunction = (($context.Request.RawUrl).split('?')[0]).replace('','')
-		$requestedVariable = (($context.Request.RawUrl).split('?')[1])
+		$requestedFunction = (($requestedFunction).split('?')[0])
+		$requestedVariable = (($requestedFunction).split('?')[1])
 	}
 
 	switch($requestedFunction){
@@ -30,13 +29,13 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 		}
 		'setPower'	{
 			switch($requestedVariable){
-				'high'	{
+				'full'	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'full'
 				}
 				'medium'	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'medium'
 				}
-				'low'	{
+				'light'	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'light'
 				}
 				default	{
