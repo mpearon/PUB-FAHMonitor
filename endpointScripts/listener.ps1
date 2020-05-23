@@ -31,16 +31,16 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 		'setPower'	{
 			switch($requestedVariable){
 				'high'	{
-					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'high'
+					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'full'
 				}
 				'medium'	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'medium'
 				}
 				'low'	{
-					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'low'
+					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'light'
 				}
 				default	{
-					$return = 'listener\setPower: Expected high|medium|low'
+					$return = 'listener\setPower: Expected full|medium|light'
 				}
 			}
 			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power'

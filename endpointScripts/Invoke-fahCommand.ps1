@@ -14,11 +14,11 @@ switch($command){
 		$parsed = FAHClient --send-command "finish *"
 	}
 	'setPower' {
-		if($argument -match 'high|medium|low'){
+		if($argument -match 'full|medium|light'){
 			$parsed = FAHClient --send-command "options power $argument"
 		}
 		else{
-			$parsed = 'Invoke-fahCommand\setPower: Expected (high|medium|low)'
+			$parsed = 'Invoke-fahCommand\setPower: Expected (full|medium|light)'
 		}
 	}
 	'onIdle'	{
