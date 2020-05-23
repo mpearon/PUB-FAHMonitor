@@ -1,9 +1,9 @@
 Param(
-	$command,
+	$commandText,
 	$argument
 )
 
-switch($command){
+switch($commandText){
 	'pause'		{
 		$parsed = FAHClient --send-command "pause *"
 	}
@@ -15,7 +15,7 @@ switch($command){
 	}
 	'setPower' {
 		if($argument -match 'full|medium|light'){
-			$parsed = FAHClient --send-command "options power $argument"
+			$parsed = FAHClient --send-command "option power $argument"
 		}
 		else{
 			$parsed = 'Invoke-fahCommand\setPower: Expected (full|medium|light)'
@@ -23,7 +23,7 @@ switch($command){
 	}
 	'onIdle'	{
 		if($argument -as [bool]){
-			$parsed = FAHClient --send-command "options power $argument"
+			$parsed = FAHClient --send-command "option power $argument"
 		}
 		$parsed = 'Invoke-fahCommand\onIdle: Expected boolean'
 	}
