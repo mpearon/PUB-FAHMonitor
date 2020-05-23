@@ -1,17 +1,22 @@
 Param(
-	$commandText
+	$commandText,
+	[string]$format = 'html'
 )
-
-Write-Verbose (-join('Invoke-fahQuery: Parameter Validation - $commandText = ',$commandText))
 
 switch($commandText){
 	'slot'	{
 		$unparsed = FAHClient --send-command "slot-info"
-		$parsed = ( $unparsed | Select-Object -Skip 2 ) -replace "---" -replace '\sFalse','"False"' -replace '\sTrue','"True"' | ConvertFrom-Json | Out-String
+		switch($format){
+			'html'	{ $parsed = ( $unparsed | Select-Object -Skip 2 ) -replace "---" -replace '\sFalse','"False"' -replace '\sTrue','"True"' | ConvertFrom-Json | ConvertTo-HTML }
+			'json'	{ $parsed = ( $unparsed | Select-Object -Skip 2 ) -replace "---" -replace '\sFalse','"False"' -replace '\sTrue','"True"' }
+		}
 	}
 	'queue'	{
 		$unparsed = FAHClient --send-command "queue-info"
-		$parsed = $unparsed | Select-String -Pattern '{.+?}' | ConvertFrom-JSON | Out-String
+		switch($format){
+			'html'	{ $parsed = $unparsed | Select-String -Pattern '{.+?}' | ConvertFrom-JSON | ConvertTo-HTML }
+			'json'	{ $parsed = $unparsed | Select-String -Pattern '{.+?}' }
+		}
 	}
 	'power'	{
 		$unparsed = FAHClient --send-command "options power"

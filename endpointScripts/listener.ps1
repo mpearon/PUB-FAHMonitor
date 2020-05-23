@@ -6,40 +6,44 @@ $stopServer = $false
 while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 	$context = $listener.GetContext()
 	$requestedFunction = $context.Request.RawUrl -replace '/'
-	if($requestedFunction -match '\?'){
+	if($requestedFunction -match '\?|\&'){
 		$requestedFunction = (($context.Request.RawUrl -replace '/').split('?')[0])
 		$requestedVariable = (($context.Request.RawUrl -replace '/').split('?')[1])
+		$requestedformat = ((($context.Request.RawUrl) -split 'format=')[1])
 	}
-
+	switch($requestedFormat){
+		''		{ $requestedformat = 'html' }
+		$null	{ $requestedformat = 'html' }
+	}
 	switch($requestedFunction){
 		'slotInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot' -format $requestedFormat
 		}
 		'queueInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'queue'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'queue' -format $requestedFormat
 		}
 		'powerInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power' -format $requestedFormat
 		}
 		'userInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'user'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'user' -format $requestedFormat
 		}
 		'teamInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'team'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'team' -format $requestedFormat
 		}
 		'setPower'	{
 			switch($requestedVariable){
 				'full'	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'full'
-					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power'
+					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power' -format $requestedFormat
 				}
 				'medium'	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'medium'
-					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power'
+					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power' -format $requestedFormat
 				}
 				'light'	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'light'
-					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power'
+					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power' -format $requestedFormat
 				}
 				default	{
 					$return = 'listener\setPower: Expected full|medium|light'
@@ -50,11 +54,11 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 			switch($requestedVariable){
 				$true	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'pause'
-					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot'
+					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot' -format $requestedFormat
 				}
 				$false	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'unpause'
-					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot'
+					$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot' -format $requestedFormat
 				}
 				default	{
 					$return = 'listener\setPause: Expected boolean'
@@ -65,11 +69,11 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 			switch($requestedVariable){
 				$true	{
 					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'onIdle' -argument 'true'
-					$return =  pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot' 
+					$return =  pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot' -format $requestedFormat
 				}
 				$false	{
 					 pwsh -file ./Invoke-fahCommand.ps1 -commandText 'onIdle' -argument 'false'
-					 $return =  pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot' 
+					 $return =  pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot' -format $requestedFormat
 				}
 				default	{
 					$return = 'listener\setOnIdle: Expected boolean'
@@ -98,15 +102,15 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 					<body>
 						<h1>Folding@Home Monitor</h1><br />
 						<font color="green">[RUNNING]</font>
-						<ol>
-							<li>slotInfo</li>
+						<ul>
+							<li><a href="slotInfo">slotInfo</a></li>
 							<li>queueInfo</li>
 							<li>userInfo</li>
 							<li>teamInfo</li>
 							<li>setPower</li>
 							<li>setPause</li>
 							<li>setOnIdle</li>
-						</ol>
+						</ul>
 					</body>
 				</html>
 "@	
