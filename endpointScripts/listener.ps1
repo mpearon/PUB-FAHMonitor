@@ -14,64 +14,64 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 
 	switch($requestedFunction){
 		'slotInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -ArgumentList 'slot'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot'
 		}
 		'queueInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -ArgumentList 'queue'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'queue'
 		}
 		'powerInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -ArgumentList 'power'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power'
 		}
 		'userInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -ArgumentList 'user'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'user'
 		}
 		'teamInfo'	{
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -ArgumentList 'team'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'team'
 		}
 		'setPower'	{
 			switch($requestedVariable){
 				'high'	{
-					pwsh -file ./Invoke-fahCommand.ps1 -ArgumentList 'setPower','high'
+					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'high'
 				}
 				'medium'	{
-					pwsh -file ./Invoke-fahCommand.ps1 -ArgumentList 'setPower','medium'
+					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'medium'
 				}
 				'low'	{
-					pwsh -file ./Invoke-fahCommand.ps1 -ArgumentList 'setPower','low'
+					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'setPower' -argument 'low'
 				}
 				default	{
 					$return = 'listener\setPower: Expected high|medium|low'
 				}
 			}
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -ArgumentList 'power'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'power'
 		}
 		'setPause'	{
 			switch($requestedVariable){
 				$true	{
-					pwsh -file ./Invoke-fahCommand.ps1 -ArgumentList 'pause'
+					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'pause'
 				}
 				$false	{
-					pwsh -file ./Invoke-fahCommand.ps1 -ArgumentList 'unpause'
+					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'unpause'
 				}
 				default	{
 					$return = 'listener\setPause: Expected boolean'
 				}
 			}
-			$return = pwsh -file ./Invoke-fahQuery.ps1 -ArgumentList 'slot'
+			$return = pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot'
 		}
 		'setOnIde'	{
 			switch($requestedVariable){
 				$true	{
-					pwsh -file ./Invoke-fahCommand.ps1 -ArgumentList 'onIdle','true'
+					pwsh -file ./Invoke-fahCommand.ps1 -commandText 'onIdle' -argument 'true'
 				}
 				$false	{
-					 pwsh -file ./Invoke-fahCommand.ps1 -ArgumentList 'onIdle','false' 
+					 pwsh -file ./Invoke-fahCommand.ps1 -commandText 'onIdle' -argument 'false' 
 				}
 				default	{
 					$return = 'listener\setOnIdle: Expected boolean'
 				}
 			}
-			$return =  pwsh -file ./Invoke-fahQuery.ps1 -ArgumentList 'slot' 
+			$return =  pwsh -file ./Invoke-fahQuery.ps1 -commandText 'slot' 
 		}
 		'stopServer'	{
 			$return = @"
