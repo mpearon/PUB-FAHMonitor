@@ -85,6 +85,7 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 					</body>
 				</html>
 "@
+			$stopServer = $true
 		}
 		default		{
 			$return = @"
@@ -105,8 +106,7 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 						</ol>
 					</body>
 				</html>
-"@
-			$stopServer = $true
+"@	
 		}
 	}
 
