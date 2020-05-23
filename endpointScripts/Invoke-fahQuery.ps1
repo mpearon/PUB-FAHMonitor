@@ -2,6 +2,8 @@ Param(
 	$commandText
 )
 
+Write-Verbose (-join('Invoke-fahQuery: Parameter Validation - $commandText = ',$commandText))
+
 switch($commandText){
 	'slot'	{
 		$unparsed = FAHClient --send-command "slot-info"
@@ -17,11 +19,11 @@ switch($commandText){
 	}
 	'user'	{
 		$unparsed = FAHClient --send-command "options user"
-		$parsed = ( $parsed | Select-String -Pattern '{.+?}' | ConvertFrom-JSON ).user
+		$parsed = ( $unparsed | Select-String -Pattern '{.+?}' | ConvertFrom-JSON ).user
 	}
 	'team'	{
 		$unparsed = FAHClient --send-command "options team"
-		$parsed = ( $parsed | Select-String -Pattern '{.+?}' | ConvertFrom-JSON ).team
+		$parsed = ( $unparsed | Select-String -Pattern '{.+?}' | ConvertFrom-JSON ).team
 	}
 	default	{
 		$parsed = 'Invoke-fahQuery: Unknown Command'
