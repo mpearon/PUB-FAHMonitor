@@ -7,8 +7,8 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 	$context = $listener.GetContext()
 	$requestedFunction = $context.Request.RawUrl -replace '/'
 	if($requestedFunction -match '\?'){
-		$requestedFunction = (($requestedFunction).split('?')[0])
-		$requestedVariable = (($requestedFunction).split('?')[1])
+		$requestedFunction = (($context.Request.RawUrl -replace '/').split('?')[0])
+		$requestedVariable = (($context.Request.RawUrl -replace '/').split('?')[1])
 	}
 
 	switch($requestedFunction){
