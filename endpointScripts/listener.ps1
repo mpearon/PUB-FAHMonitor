@@ -109,7 +109,7 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 		}
 	}
 
-	$buffer = [System.Text.Encoding]::UTF8.GetBytes($html)
+	$buffer = [System.Text.Encoding]::UTF8.GetBytes($return)
 	$context.Response.ContentLength64 = $buffer.Length
 	$context.Response.OutputStream.Write($buffer, 0, $buffer.Length)
 	$context.Response.OutputStream.Close()
