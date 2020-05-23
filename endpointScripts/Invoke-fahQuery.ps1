@@ -15,7 +15,7 @@ switch($commandText){
 	}
 	'power'	{
 		$unparsed = FAHClient --send-command "options power"
-		$parsed = ( $unpased | Select-String -Pattern '{.+?}' | ConvertFrom-JSON ).power
+		$parsed = ( $unparsed | Select-String -Pattern '{.+?}' | ConvertFrom-JSON ).power
 	}
 	'user'	{
 		$unparsed = FAHClient --send-command "options user"
