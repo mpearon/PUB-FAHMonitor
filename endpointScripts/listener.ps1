@@ -106,6 +106,7 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 					</body>
 				</html>
 "@
+			$stopServer = $true
 		}
 	}
 
