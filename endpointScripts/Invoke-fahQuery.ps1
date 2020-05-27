@@ -51,6 +51,28 @@ switch($commandText){
 			}
 		}
 	}
+	'summary'	{
+		$queueInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'queue' -format 'json' | ConvertFrom-Json
+		$summaryObject = [PSCustomObject]@{
+			foldHost = hostname
+			user = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'user' -format 'json' | ConvertFrom-JSON).user
+			teamInfo = [int](pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'team' -format 'json' | ConvertFrom-Json).team
+			status = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'slot' -format 'json' | ConvertFrom-Json).status
+			power = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'power' -format 'json' | ConvertFrom-Json).power
+			state = $queueInfo.state
+			error = $queueInfo.error
+			project = $queueInfo.project
+			percentComplete = [double]($queueInfo.percentdone -replace '%')
+			eta = $queueInfo.eta
+			assigned = $queueInfo.assigned
+			deadline = $queueInfo.deadline
+		}
+		switch($format){
+			'json'	{ $parsed = $summaryObject | ConvertTo-Json }
+			'html'	{ $parsed = $summaryObject | ConvertTo-Html }
+			$null	{ $parsed = $summaryObject | ConvertTo-Html }
+		}
+	}
 	default	{
 		$parsed = 'Invoke-fahQuery: Unknown Command'
 	}

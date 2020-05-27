@@ -36,26 +36,8 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 			$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'team' -format $requestedFormat
 		}
 		'summaryInfo'	{
-			$queueInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'queue' -format 'json' | ConvertFrom-Json
-			$summaryObject = [PSCustomObject]@{
-				foldHost = hostname
-				user = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'user' -format 'json' | ConvertFrom-JSON).user
-				teamInfo = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'team' -format 'json' | ConvertFrom-Json).team
-				status = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'slot' -format 'json' | ConvertFrom-Json).status
-				power = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'power' -format 'json' | ConvertFrom-Json).power
-				state = $queueInfo.state
-				error = $queueInfo.error
-				project = $queueInfo.project
-				percentComplete = $queueInfo.percentdone
-				eta = $queueInfo.eta
-				assigned = $queueInfo.assigned
-				deadline = $queueInfo.deadline
-			}
-			switch($requestedformat){
-				'json'	{ $return = $summaryObject | ConvertTo-Json }
-				'html'	{ $return = $summaryObject | ConvertTo-Html }
-				$null	{ $return = $summaryObject | ConvertTo-Html }
-			}
+
+			$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'summary' -format $requestedFormat
 		}
 		'setPower'		{
 			switch($requestedVariable){
