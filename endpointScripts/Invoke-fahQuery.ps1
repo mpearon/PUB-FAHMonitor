@@ -53,19 +53,35 @@ switch($commandText){
 	}
 	'summary'	{
 		$queueInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'queue' -format 'json' | ConvertFrom-Json
+		$userInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'user' -format 'json' | ConvertFrom-Json
+		$teamInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'team' -format 'json' | ConvertFrom-Json
+		$statusInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'slot' -format 'json' | ConvertFrom-Json
+		$powerInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'power' -format 'json' | ConvertFrom-Json
 		$summaryObject = [PSCustomObject]@{
 			foldHost = hostname
-			user = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'user' -format 'json' | ConvertFrom-JSON).user
-			teamInfo = [int](pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'team' -format 'json' | ConvertFrom-Json).team
-			status = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'slot' -format 'json' | ConvertFrom-Json).status
-			power = (pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'power' -format 'json' | ConvertFrom-Json).power
+			user = $userInfo.user
+			userLink = (-join('https://stats.foldingathome.org/donor/',(Invoke-RestMethod -Uri (-join('https://stats.foldingathome.org/api/donor/',$userInfo.user))).id))
+			teamInfo = [int]$teamInfo.team
+			teamLink = (-join('https://stats.foldingathome.org/team/',$teamInfo.team))
+			status = switch($statusInfo.status){
+					'STOPPED'	{ 0 }
+					'RUNNING'	{ 1 }
+					'PAUSED'	{ 2 }
+					'FINISHING'	{ 3 }
+				}
+			power = switch($powerInfo.power){
+					'full'		{ 3 }
+					'medium'	{ 2 }
+					'light'		{ 1 }
+				}
 			state = $queueInfo.state
 			error = $queueInfo.error
 			project = $queueInfo.project
+			projectLink = (-join('https://stats.foldingathome.org/project?p=',$queueInfo.project))
 			percentComplete = [double]($queueInfo.percentdone -replace '%')
 			eta = $queueInfo.eta
-			assigned = $queueInfo.assigned
-			deadline = $queueInfo.deadline
+			assigned = (Get-Date $queueInfo.assigned -Format 'yyyy-MM-dd HH:mm')
+			deadline = (Get-Date $queueInfo.deadline -Format 'yyyy-MM-dd HH:mm')
 		}
 		switch($format){
 			'json'	{ $parsed = $summaryObject | ConvertTo-Json }
