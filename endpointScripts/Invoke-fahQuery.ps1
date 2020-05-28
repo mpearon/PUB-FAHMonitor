@@ -74,10 +74,19 @@ switch($commandText){
 					'medium'	{ 2 }
 					'light'		{ 1 }
 				}
-			state = $queueInfo.state
-			error = $queueInfo.error
+			state = switch($queueInfo.state){
+					'READY'		{ 0 }
+					'RUNNING'	{ 1 }
+			}
+			error = switch($queueInfo.error){
+					'NO_ERROR'	{ 0 }
+					default		{ 1 }
+			}
 			project = $queueInfo.project
 			projectLink = (-join('https://stats.foldingathome.org/project?p=',$queueInfo.project))
+			unit = $queueInfo.unit
+			framesCompleted = $queueInfo.framesdone
+			framesTotal = $queueInfo.totalframes
 			percentComplete = [double]($queueInfo.percentdone -replace '%')
 			eta = $queueInfo.eta
 			assigned = (Get-Date $queueInfo.assigned -Format 'yyyy-MM-dd HH:mm')
