@@ -12,28 +12,36 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 		$requestedformat = ((($context.Request.RawUrl) -split 'format=')[1])
 	}
 	switch($requestedFormat){
-		''		{ $requestedformat = 'html' }
-		$null	{ $requestedformat = 'html' }
+		''			{ $requestedformat = 'html' }
+		'html'		{ $requestedformat = 'html' }
+		'json'		{ $requestedformat = 'json' }
+		'influx'	{ $requestedformat = 'influx' }
+		$null		{ $requestedformat = 'html' }
+		default		{ $requestedformat = 'html' }
 	}
 	switch($requestedFunction){
-		'slotInfo'	{
+		'slotInfo'		{
 			$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'slot' -format $requestedFormat
 		}
-		'queueInfo'	{
+		'queueInfo'		{
 			$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'queue' -format $requestedFormat
 		}
-		'powerInfo'	{
+		'powerInfo'		{
 			$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'power' -format $requestedFormat
 		}
-		'userInfo'	{
+		'userInfo'		{
 			$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'user' -format $requestedFormat
 		}
-		'teamInfo'	{
+		'teamInfo'		{
 			$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'team' -format $requestedFormat
 		}
-		'setPower'	{
+		'summaryInfo'	{
+
+			$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'summary' -format $requestedFormat
+		}
+		'setPower'		{
 			switch($requestedVariable){
-				'full'	{
+				'full'		{
 					pwsh -file (-join($PSScriptRoot,'/Invoke-fahCommand.ps1')) -commandText 'setPower' -argument 'full'
 					$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'power' -format $requestedFormat
 				}
@@ -41,16 +49,16 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 					pwsh -file (-join($PSScriptRoot,'/Invoke-fahCommand.ps1')) -commandText 'setPower' -argument 'medium'
 					$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'power' -format $requestedFormat
 				}
-				'light'	{
+				'light'		{
 					pwsh -file (-join($PSScriptRoot,'/Invoke-fahCommand.ps1')) -commandText 'setPower' -argument 'light'
 					$return = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'power' -format $requestedFormat
 				}
-				default	{
+				default		{
 					$return = 'listener\setPower: Expected full|medium|light'
 				}
 			}
 		}
-		'setPause'	{
+		'setPause'		{
 			switch($requestedVariable){
 				$true	{
 					pwsh -file (-join($PSScriptRoot,'/Invoke-fahCommand.ps1')) -commandText 'pause'
@@ -65,7 +73,7 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 				}
 			}
 		}
-		'setOnIde'	{
+		'setOnIde'		{
 			switch($requestedVariable){
 				$true	{
 					pwsh -file (-join($PSScriptRoot,'/Invoke-fahCommand.ps1')) -commandText 'onIdle' -argument 'true'
@@ -80,7 +88,7 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 				}
 			}
 		}
-		'setFinish'	{
+		'setFinish'		{
 			pwsh -file (-join($PSScriptRoot,'/Invoke-fahCommand.ps1')) -commandText 'finish' -argument 'false'
 			$return =  pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'slot' -format $requestedFormat
 		}
@@ -98,7 +106,7 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 "@
 			$stopServer = $true
 		}
-		default		{
+		default			{
 			$return = @"
 				<html>
 					<head>
