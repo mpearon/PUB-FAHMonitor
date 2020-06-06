@@ -86,7 +86,7 @@ switch($commandText){
 			}
 			project = $queueInfo.project
 			projectLink = (-join('https://stats.foldingathome.org/project?p=',$queueInfo.project))
-			unit = $queueInfo.unit
+			unit = (-join('u',$queueInfo.unit))
 			framesCompleted = $queueInfo.framesdone
 			framesTotal = $queueInfo.totalframes
 			percentComplete = [double]($queueInfo.percentdone -replace '%')
