@@ -57,10 +57,12 @@ switch($commandText){
 		$teamInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'team' -format 'json' | ConvertFrom-Json
 		$statusInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'slot' -format 'json' | ConvertFrom-Json
 		$powerInfo = pwsh -file (-join($PSScriptRoot,'/Invoke-fahQuery.ps1')) -commandText 'power' -format 'json' | ConvertFrom-Json
+		$apiUserData = Invoke-RestMethod (-join('https://stats.foldingathome.org/api/donor/',$userInfo.user))
 		$summaryObject = [PSCustomObject]@{
 			foldHost = hostname
 			user = $userInfo.user
-			userLink = (-join('https://stats.foldingathome.org/donor/',(Invoke-RestMethod -Uri (-join('https://stats.foldingathome.org/api/donor/',$userInfo.user))).id))
+			userLink = (-join('https://stats.foldingathome.org/donor/',($apiUserData).id))
+			userWuCount = Invoke-RestMethod -Uri ($apiUserData).wus
 			teamInfo = [int]$teamInfo.team
 			teamLink = (-join('https://stats.foldingathome.org/team/',$teamInfo.team))
 			status = switch($statusInfo.status){
