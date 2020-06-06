@@ -62,7 +62,7 @@ switch($commandText){
 			foldHost = hostname
 			user = $userInfo.user
 			userLink = (-join('https://stats.foldingathome.org/donor/',($apiUserData).id))
-			userWuCount = Invoke-RestMethod -Uri ($apiUserData).wus
+			userWuCount = ($apiUserData).wus
 			teamInfo = [int]$teamInfo.team
 			teamLink = (-join('https://stats.foldingathome.org/team/',$teamInfo.team))
 			status = switch($statusInfo.status){
