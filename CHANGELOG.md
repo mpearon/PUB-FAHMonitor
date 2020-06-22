@@ -1,3 +1,7 @@
+# v0.1.7 - 2020-06-22 12:31
+- Adjusted Listener
+	- Corrected issue with setPower endpoint
+
 # v0.1.6 - 2020-05-20 17:43
 - Codespaces Preparation
 	- Added .devcontainer/devcontainer.json
