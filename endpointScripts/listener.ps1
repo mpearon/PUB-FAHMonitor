@@ -120,7 +120,7 @@ while(($listener.IsListening -eq $true) -and ($stopServer -eq $false)){
 							<li><a href="userInfo">userInfo</a></li>
 							<li><a href="teamInfo">teamInfo</a></li>
 							<li><a href="setFinish">setFinish</a></li>
-							<li><a href="setPower?high">setPower - full</a></li>
+							<li><a href="setPower?full">setPower - full</a></li>
 							<li><a href="setPower?medium">setPower - medium</a></li>
 							<li><a href="setPower?light">setPower - light</a></li>
 							<li><a href="setPause?true">setPause - true</a></li>
